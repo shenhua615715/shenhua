@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 使用 mvn mybatis-generator:generate -->
+<generatorConfiguration>
+    <!--<properties resource="application-dev.yml"/>-->
+    <context id="sqlMapGenerator" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 设置使用UTF-8编码格式 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- plugin -->
+        <!--<plugin type="org.mybatis.generator.plugins.CachePlugin"/>-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!-- property name="mappers" value="tk.mybatis.mapper.common.Mapper"/ -->
+            <property name="mappers" value="com.shenhua.base.myMapper.MyMapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="false"/>
+        </plugin>
+
+        <!-- 取消生成的代码注释 -->
+        <commentGenerator type="org.mybatis.generator.internal.DefaultCommentGenerator">
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+            <!-- 此处为 true 时，生成的 Model 包含对应表字段注释 -->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 连接配置
+        <jdbcConnection driverClass="${spring.datasource.druid.driver-class-name}"
+                        connectionURL="${spring.datasource.druid.url}"
+                        userId="${spring.datasource.druid.username}"
+                        password="${spring.datasource.druid.password}">
+        </jdbcConnection>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-8vb63id3264r63f35po.mysql.zhangbei.rds.aliyuncs.com:3306/shenhua?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"
+                        userId="shenhua"
+                        password="shenhua615715!">
+        </jdbcConnection>
+        <!-- java类型处理器
+            用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+            注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+        -->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!--
+                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+                false：默认,
+                    scale>0;length>18：使用BigDecimal;
+                    scale=0;length[10,18]：使用Long；
+                    scale=0;length[5,9]：使用Integer；
+                    scale=0;length<5：使用Short；
+             -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径 -->
+        <javaModelGenerator targetPackage="com.shenhua.base.entity"
+                            targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成Mapper 配置文件 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <!-- javaClientGenerator是应用接口的生成信息 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.shenhua.base.mapper"
+                             targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库 -->
+        <table tableName="shenhua" schema="shenhua"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false">
+            <property name="selectAllOrderByClause" value="true"/>
+            <!-- 模型属性和表字段名字大小写一致 -->
+            <property name="useActualColumnNames" value="false"/>
+            <property name="rootClass" value="com.shenhua.base.domains.IdEntity"/>
+
+            <!-- generatedKey column="id" sqlStatement="MySql" identity="true"/ -->
+            <ignoreColumn column="id" delimitedColumnName=""/>
+            <ignoreColumn column="remark" delimitedColumnName=""/>
+            <ignoreColumn column="remarks" delimitedColumnName=""/>
+            <ignoreColumn column="create_by" delimitedColumnName=""/>
+            <ignoreColumn column="update_by" delimitedColumnName=""/>
+            <ignoreColumn column="create_date" delimitedColumnName=""/>
+            <ignoreColumn column="update_date" delimitedColumnName=""/>
+            <ignoreColumn column="del_flag" delimitedColumnName=""/>
+
+            <columnOverride column="login_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="reg_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="day_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="auth_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="apply_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="update_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="get_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="open_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="recharge_time" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="create_date" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <columnOverride column="update_date" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime"/>
+            <!--<columnOverride column="create_date" jdbcType="DATE" javaType="java.time.LocalDate"/>-->
+            <!--<columnOverride column="create_time" jdbcType="TIME" javaType="java.time.LocalTime"/>-->
+        </table>
+
+        <!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库 -->
+        <!--<table tableName="ceg_user" domainObjectName="CegUser"-->
+        <!--enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--<property name="selectAllOrderByClause" value="true"/>-->
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="ceg_member" domainObjectName="CegMember"-->
+        <!--enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--<property name="selectAllOrderByClause" value="true"/>-->
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

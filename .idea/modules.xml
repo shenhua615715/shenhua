@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/shenhua.iml" filepath="$PROJECT_DIR$/shenhua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shenhua-base/shenhua-base.iml" filepath="$PROJECT_DIR$/shenhua-base/shenhua-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shenhua-intf/shenhua-intf.iml" filepath="$PROJECT_DIR$/shenhua-intf/shenhua-intf.iml" />
+    </modules>
+  </component>
+</project>

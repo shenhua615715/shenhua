@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>com.shenhua</groupId>
+        <artifactId>shenhua</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.shenhua</groupId>
+	<artifactId>shenhua-intf</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>shenhua-intf</name>
+	<description>神话</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<shiro.version>1.3.2</shiro.version>
+	</properties>
+
+	<dependencies>
+		<!--引入公共模块-->
+		<!--dependency>
+			<groupId>com.shenhua</groupId>
+			<artifactId>shenhua-system</artifactId>
+			<version>${project.version}</version>
+		</dependency-->
+
+
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.shenhua.base</groupId>
+			<artifactId>shenhua-base</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!--  打成jar时，设定manifest的参数，比如指定运行的Main class，还有依赖的jar包，加入classpath中  -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<useUniqueVersions>false</useUniqueVersions>
+							<mainClass>com.shenhua.intf.ShenhuaIntfApplication</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>./</Class-Path>
+						</manifestEntries>
+					</archive>
+					<excludes>
+						<exclude>c,*.yml,*.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!--用于复制依赖的jar包到指定的文件夹里-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<finalName>shenhua-intf</finalName>
+	</build>
+</project>
